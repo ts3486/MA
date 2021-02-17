@@ -7,13 +7,6 @@ interface Props{
 
 }
 
-// interface Image{
-//     onChangeImage: (object: {targetImage: File|null}) => void
-// }
-
-
-
-
 export const FormComponent: React.FC<Props> = (props: any) => {
 
     const [filename, setFilename] = useState("");

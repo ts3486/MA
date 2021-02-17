@@ -13,31 +13,14 @@ interface Types {
 
 const NormalLoginForm = (props: any) => {
 
-    // const [username, handleUsername] = useState();
-    // const [password, handlePassword] = useState();
-
 
 const onFinish = (values: any) => {
     props.login(values.email, values.password);
-    // console.log('Received values of form: ', values);
 
     props.history.push("/");
   };
 
   const [form] = Form.useForm<Types>();
-//   const [form, handleSubmit] = useForm<Submit>();
-
-//   const onSubmit = (e: any) => {
-//     e.preventDefault();
-
-//     props.form.validateFields((err: any, values: any) => {
-//         if(!err){
-//             props.onAuth(values.userName, values.password);
-//         }
-//     })
-//     //after logged in, redirects you to the "/" page.
-//     props.history.push("/");
-//     }; 
 
   let errorMessage = null;
   if (props.error){
@@ -112,7 +95,6 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
     return{
         login: (email: string, password: string) => dispatch(actionTypes_auth.login({email, password}))
-        // onAuth: (username: string, password: any) => dispatch(actionTypes_auth.authLogin(username, password)),
     }
 }
 

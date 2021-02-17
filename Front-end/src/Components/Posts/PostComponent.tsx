@@ -3,8 +3,6 @@ import './PostComponent_style.tsx';
 import { PostWrapper } from "./PostComponent_style";
 import axios from "axios";
 import {connect} from "react-redux";
-// import { makeStyles } from '@material-ui/core/styles';
-// import clsx from 'clsx';
 import {Card, CardHeader, CardMedia, CardContent, CardActions, IconButton, Avatar} from "@material-ui/core";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
