@@ -1,0 +1,46 @@
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+h1 {
+  margin: 60px;
+  font-family: 'Caveat', cursive;
+  font-weight: bold;
+}
+
+/* font-family: 'Caveat', cursive;
+font-family: 'Kaushan Script', cursive;
+font-family: 'Lobster Two', cursive;
+font-family: 'Satisfy', cursive;
+
+ */
+
+#login {
+  margin-right: 30px;
+  margin-left: 10px;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 80%;
+  background-color: rgb(250,250,250);
+}
+
+/* .post_container1{
+  width:30%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  padding: auto;
+} */

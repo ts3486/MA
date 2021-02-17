@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://Tao:Tao34@cluster1.lfte8.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "sl_myJwtSecret"
+}
