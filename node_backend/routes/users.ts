@@ -15,7 +15,8 @@ router.route("/").get((req :any, res: any) => {
 })
 //Get one user`s JSON info
 router.route("/profile/:username").get((req: any,res: any) => {
-    User.findById(req.params.username).select("-password")
+
+    User.findOne({username: req.params.username}).select("-password")
     .then((user: any) => res.json(user));
 })
 

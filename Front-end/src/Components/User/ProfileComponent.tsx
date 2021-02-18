@@ -27,23 +27,28 @@ export const ProfileComponent: React.FC<Props> = (props: any) => {
 
 
 
-    //Graduation Function
+    //Fetch user profile data
     useEffect(() => {
 
         const fetchUserData = () => {
             axios.get("http://localhost:5000/users/profile/" + username).then((res: any) => {
-                setUsername(res.username);
-                setDescription(res.description);
-                setFilename(res.filename);
+                   
+            
+                setUsername(res.data.username);
+                setDescription(res.data.description);
+                setFilename(res.data.filename);
+
             })
         };
 
         fetchUserData();
+        console.log(userName, description, filename);
 
+        //Graduation Function
         if(props.totalLikes >= 2){
             setModal2State(true);
         }
-    }, [props.totalLikes, username])
+    }, [props.totalLikes, username,userName, description, filename])
 
     //Filter Posts
     const userPosts = props.posts.filter((post: any) => post.username ===  username)
@@ -52,19 +57,24 @@ export const ProfileComponent: React.FC<Props> = (props: any) => {
     const profileData = {
         newUsername: userName,
         description: description,
-        profilePic: image,
         filename: filename,
     }
+
+    const imageData: any = new FormData();
+
+    imageData.append("image", image)
     
     const setProfile = () => {
         //Update User Info
-        axios.post("http://localhost:5000/users/profile/update/" + username, profileData).then((err:any) => (console.log(profileData)));
+        axios.post("http://localhost:5000/users/profile/update/" + username, profileData).then((err:any) => (console.log("profile updated!")));
         //Update username of all user posts
-        axios.post("http://localhost:5000/posts/update/" + username, profileData);
+        axios.post("http://localhost:5000/posts/update/username/" + username, profileData).then((err:any) => (console.log("user posts updated!")));;
 
-        axios.post("http://localhost:5000/posts/add/image", profileData.profilePic).then(res => {
+        axios.post("http://localhost:5000/posts/add/image", imageData).then(res => {
+            console.log("profile pic updated!!");
         }).catch( error => console.log(error))
 
+        //reload with new username;
         // window.location.replace("http://localhost:3000/profile/" + profileData.newUsername);
     }
 

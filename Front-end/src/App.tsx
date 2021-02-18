@@ -33,7 +33,7 @@ class App extends Component<any> {
   
   async componentDidUpdate(prevProps: any){
 
-    console.log(prevProps.user, this.props.user, )
+    // console.log(prevProps.user, this.props.user, )
 
     if(await this.props.user !== prevProps.user) {
       this.props.countTotalLikes(this.props.user.username);

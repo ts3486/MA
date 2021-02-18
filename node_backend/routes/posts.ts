@@ -139,27 +139,31 @@ router.route("/image/delete/:filename").delete((req: any,res: any) => {
 })
 
 //Update post username
-router.route("/update/:username").post((req: any,res: any) => {
+router.route("/update/username/:username").post((req: any,res: any) => {
 
     const newUsername: string = req.body.newUsername;
 
     if(req.params.username !== ` `){
-    Post.find({username: req.params.username})
-        .then((post: any) => {
-            post.username = newUsername;
-            // post.description = req.body.description;
-            
-            post.save()
-            .then((users: any) => res.json("Post username updated!"))
-            .catch((err: any) => res.status(400).json("Error: " + err))                
 
-        })
-        .catch((err: any) => res.status(400).json("Error: " + err))
+        Post.updateMany({username: req.params.username}, {username: newUsername}).then((result: any) => {
+            return result;
+        }).catch((err: any) => res.status(400).json("Error: " + err))
+
+//     Post.find({username: req.params.username})
+//         .then((post: any) => {
+//             post.username = newUsername;
+            
+//             post.save()
+//             .then((users: any) => res.json("Post username updated!"))
+//             .catch((err: any) => res.status(400).json("Error: " + err))                
+
+//         })
+//         .catch((err: any) => res.status(400).json("Error: " + err))
     }
 })
 
 
-//Update by id
+//Update postby id
     router.route("/update/:id").get((req: any,res: any) => {
         if(req.params.id !== ` `){
         Post.findById(req.params.id)
