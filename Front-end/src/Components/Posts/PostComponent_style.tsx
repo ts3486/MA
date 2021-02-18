@@ -36,6 +36,10 @@ export const PostWrapper = styled.div`
         width: 600px;
     }
 
+    .MuiAvatar-img {
+        
+    }
+
     .MuiTypography-root {
         font-weight: bold;
         font-size: 15px;

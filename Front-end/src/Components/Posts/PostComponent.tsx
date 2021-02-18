@@ -16,6 +16,7 @@ interface Props {
     description?: string;
     likes?: number;
     imageId?: string;
+
 }
 
 
@@ -68,10 +69,14 @@ export const PostComponent: React.FC<Props> = (Props) => {
     //     window.location.reload();
     // };
 
-//Add Likes
+    // const [username, setUsername] = useState();
+    const [filename, setFilename] = useState();
+
+
 
     const [likes, addLike] = useState(0);
     const [postLiked, markPost] = useState(false);
+    
    
     useEffect(() => {
 
@@ -84,8 +89,18 @@ export const PostComponent: React.FC<Props> = (Props) => {
             })
         }
         //check if user has liked this post before
-        axios.get("http://localhost:5000/post/" + Props.id).then((res: any) => {
-        })
+        // axios.get("http://localhost:5000/posts/" + Props.id).then((res: any) => {
+        // })
+
+        const fetchUserData = () => {
+            axios.get("http://localhost:5000/users/profile/" + Props.username).then((res: any) => {
+
+                setFilename(res.data.filename);
+
+            })
+        };
+
+        fetchUserData();
     });
 
 
@@ -136,7 +151,7 @@ export const PostComponent: React.FC<Props> = (Props) => {
             <Card className="post_container" id={Props.id} >
 
                 <CardHeader className="cardheader" 
-                    avatar={<Avatar aria-label="recipe" className="avatar"> U </Avatar>} 
+                    avatar={<Avatar aria-label="recipe" className="avatar" src={"http://localhost:5000/posts/images/" + filename}> U </Avatar>} 
                     action={<IconButton aria-label="settings"> <MoreVertIcon /> </IconButton>}
                     title={Props.username}/>
                     
