@@ -1,113 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from "react-redux";
-import {
-  Form,
-  Input,
-  Tooltip,
-  Button,
-} from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
-// import { registerUser } from '../../store/actions/auth_actions';
 import * as actionTypes_auth from "../../store/actions/auth_actions";
+import {TextField, Button, Card} from '@material-ui/core';
+import {SignupWrapper} from "./SignupComponent_style";
+
 
 
 
 const RegistrationForm = (props: any) => {
 
-  const onFinish = (values: any) => {
 
-    JSON.stringify(values);
-    props.registerUser(values.username, values.email, values.password);
+  const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
-    // props.history.push("/");
+
+  const onSubmit = () => {
+
+    props.registerUser(username, email, password);
+
+    props.history.push("/");
   };
 
-  const [form] = Form.useForm();
 
-  // const handleSubmit = (e: any) => {
-    // e.preventDefault();
-      //   props.form.validateFields((err: any, values: any) => {
-      //   if(!err){
-      //       props.onAuth(
-      //           values.userName, 
-      //           values.email,
-      //           values.password,
-      //           values.confirm);
-      //   }
-      // })
-    // after logged in, redirects you to the "/" page.
-    // props.history.push("/");
-  // }; 
  
   return (
-    <div>
-    <Form
-      form={form}
-      name="register"
-      onFinish={onFinish}
-      scrollToFirstError
-    >
-
-    <Form.Item
-        name="username"
-        label={
-          <span>
-            Username
-            <Tooltip title="What do you want others to call you?">
-              <QuestionCircleOutlined />
-            </Tooltip>
-          </span>
-        }
-        rules={[
-          {
-            required: true,
-            message: 'Please input your nickname!',
-            whitespace: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="email"
-        label="E-mail"
-        rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
-          },
-          {
-            required: true,
-            message: 'Please input your E-mail!',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-        hasFeedback
-        >
+    <SignupWrapper>
+        <div className="topContainer">
+          <Card className="signupContainer">
+              <h1 className="header">Sign Up</h1>
+              <TextField label="email" variant="outlined" required onChange={(e: any) => setUsername(e.target.value)}/>
+              <TextField label="password" variant="outlined" required onChange={(e: any) => setPassword(e.target.value)}/>
+              <TextField label="email" variant="outlined" required onChange={(e: any) => setEmail(e.target.value)}/>
           
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Register
-        </Button>
-      </Form.Item>
-    </Form>
-    </div>
+              <Button id="submit" type="submit" variant="contained" onClick={onSubmit}>Login</Button>
+          </Card>
+        </div>
+    </SignupWrapper>
   );
 };
 

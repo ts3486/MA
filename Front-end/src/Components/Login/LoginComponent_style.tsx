@@ -2,36 +2,38 @@ import styled from "styled-components";
 
 export const LoginWrapper = styled.div`
 
-    .supercontainer{
-        display: flex;
-        justify-content: center;
-    }
+  .topContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 50px;
+  }
 
+  .loginContainer{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 40px;
+      height: 400px;
+      width: 600px;
+  }
 
-    .container {
-        display:flex;
-        justify-content: center;
-        margin: 150px;
-        border: 1px solid black;
-        padding: 50px 50px 50px 50px;
-        width: 600px;
-    }
+  .header{
+      display: flex;
+      justify-content: center;
+      margin: 30px;
+  }
 
-    h1 {
-        margin: 10px;
-    }
+ .MuiInputBase-input {
+      width 500px;
+  }
 
-
-    form {
-        width: 400px;
-    }
-
-    input {
-        padding: 5px 100px 5px 10px;
-    }
-
-    label {
-        margin: 8px;
-    }
+  .MuiButtonBase-root{
+      width: 400px;
+      margin: 30px;
+  }
 
 `;
+

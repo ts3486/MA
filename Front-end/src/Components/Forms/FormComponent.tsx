@@ -4,11 +4,9 @@ import {FormWrapper} from "./FormComponent_style"
 import axios from "axios";
 import { TextField, Button } from '@material-ui/core';
 
-interface Props{
 
-}
 
-export const FormComponent: React.FC<Props> = (props: any) => {
+export const FormComponent: React.FC = (props: any) => {
 
     const [filename, setFilename] = useState("");
     const [image, setImage] = useState(null);
