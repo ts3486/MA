@@ -75,7 +75,7 @@ export const ProfileComponent: React.FC<Props> = (props: any) => {
         }).catch( error => console.log(error))
 
         //reload with new username;
-        // window.location.replace("http://localhost:3000/profile/" + profileData.newUsername);
+        window.location.replace("http://localhost:3000/profile/" + profileData.newUsername);
     }
 
    

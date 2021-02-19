@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import {connect} from "react-redux";
 import {FormWrapper} from "./FormComponent_style"
 import axios from "axios";
+import { TextField, Button } from '@material-ui/core';
 
 interface Props{
 
@@ -44,35 +45,40 @@ export const FormComponent: React.FC<Props> = (props: any) => {
     return(
     
     <FormWrapper>
-        <div className="container">
-            <form className="form" action="/upload">
+            <form className="postForm" action="/upload">
 
-                <label>Image:</label>
-                    <input
-                    type="file"
-                    name="image"
-                    id="input"
-                    formEncType="multipart/form-data"
-                    onChange={(e: any) => {setImage(e.target.files[0]); setFilename(e.target.files[0].name); }}
-                    required
-                    /><br /><br />
-                <label>Description:</label>
-                    <input
-                    type="text"
-                    name="description"
-                    id="input"
-                    value={description}
-                    onChange={(e)=> setDesc(e.target.value)}
-                    required
-                    /><br /><br />
+                <div className="container">
+
+                    <h1 className="formTitle">Post your content!</h1>
+                    
+                    <Button>
+                        <input
+                        type="file"
+                        name="image"
+                        id="input"
+                        formEncType="multipart/form-data"
+                        onChange={(e: any) => {setImage(e.target.files[0]); setFilename(e.target.files[0].name); }}
+                        required
+                        />
+                    </Button>    
+                    <br /><br />
+                    <TextField id="standared-basic" label="Description" variant="outlined" fullWidth multiline rows={6}>
+                        <input
+                        type="text"
+                        name="description"
+                        id="input"
+                        value={description}
+                        onChange={(e)=> setDesc(e.target.value)}
+                        required/>
+                    </TextField>
+                    <br/><br/>
                     
                     {/* don`t call the function at the spot, because you won`t get the e and it become asynchronous. onClick passes 
                     the click event to postHandler using the reference. Also dont use onSubmit on a button, it`s for a form, 
                     Just use a callback (reference) to refer to the function defined.   */}
-                    <button id="submit" type="submit" className="btn btn-success" onClick={postHandler}>Submit</button>
-                    
+                    <Button id="submit" type="submit" variant="contained" onClick={postHandler}>Submit</Button>
+                </div>    
             </form>
-        </div>
     </FormWrapper>
     )
 }

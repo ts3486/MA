@@ -3,11 +3,13 @@ import styled from "styled-components";
 export const FormWrapper = styled.div`
 
     .container {
-        border: solid black 1px;
-        margin-top: 10px;
-        margin-right: 395px;
-        padding: 40px;
-        width: 45%
+        display: flex;
+        justify-content: center;
+    }
+
+    .formTitle{
+        margin: 30px;
+        margin-bottom: 70px;
     }
 
 `;

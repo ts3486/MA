@@ -161,7 +161,7 @@ export const PostComponent: React.FC<Props> = (props: any) => {
 
                 <CardHeader className="cardheader" 
                     avatar={<Avatar aria-label="recipe" className="avatar" src={"http://localhost:5000/posts/images/" + filename}> U </Avatar>} 
-                    action={<IconButton aria-label="settings"> <MoreVertIcon /> </IconButton>}
+                    action={<IconButton aria-label="settings"> <MoreVertIcon /></IconButton>}
                     title={props.username}/>
                     
                 {/* Image or Video */}

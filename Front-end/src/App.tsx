@@ -5,9 +5,7 @@ import {connect} from "react-redux";
 import * as actionTypes_posts from "./store/actions/post_actions";
 import * as actionTypes_auth from "./store/actions/auth_actions";
 import * as actionTypes_user from "./store/actions/user_actions";
-import PostComponent from "./Components/Posts/PostComponent";
-import FormComponent from "./Components/Forms/FormComponent";
-// import LoginComponent from "./Components/Login/LoginComponent_test";
+import PostsPageComponent from "./Components/Posts/PostsPageCompoenent";
 import LoginComponent from "./Components/Login/LoginComponent";
 import SignupComponent from "./Components/Login/SignupComponent";
 import NavComponent from "./Components/Navbar/NavComponent";
@@ -15,11 +13,6 @@ import ProfileComponent from "./Components/User/ProfileComponent";
 
 
 class App extends Component<any> {
-
-//constuructor is for creating a state at initialization.
-//   constructor(props: any) {
-//     super(props);
-// }
 
 
 //use "async" so that componentDidMount() is ran first. Async functions allow promise based processing (functions perfomed in order and after each task is done)          https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
@@ -33,32 +26,12 @@ class App extends Component<any> {
   
   async componentDidUpdate(prevProps: any){
 
-    // console.log(prevProps.user, this.props.user, )
-
     if(await this.props.user !== prevProps.user) {
       this.props.countTotalLikes(this.props.user.username);
     };
   }
 
   render(){
-
-    const posts = (
- 
-      <div>
-          <div className="container">
-            <h1>Music Accelerator</h1>
-          {this.props.posts.map((post: any, key: any) => {
-            return <PostComponent key={post._id} id= {post._id} username={post.username} filename={post.filename} description={post.description} likes={post.likes}/>   
-          })}      
-          </div>
-
-        {this.props.isAuthenticated ? 
-        <FormComponent/> : null
-        }
-      </div>
-    );
-
-
       return (
 
         <div className="App">
@@ -66,7 +39,7 @@ class App extends Component<any> {
               <Route component={NavComponent}/>
           {/* Pages */}
             <Switch>
-              <Route exact={true} path="/" render={()=> <div>{posts}</div>}/>         
+              <Route exact={true} path="/" component={PostsPageComponent}/> 
               <Route exact={true} path="/login" component={LoginComponent}/>
               <Route exact={true} path="/signup" component={SignupComponent}/>
               <Route exact={true} path="/profile/:username" component={ProfileComponent}/>

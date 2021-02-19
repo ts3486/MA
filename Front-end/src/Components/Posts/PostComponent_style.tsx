@@ -9,7 +9,7 @@ export const PostWrapper = styled.div`
         align-items: center;
         align-content: center;
         width: 605px;
-        height: 1000px;
+        height: 1100px;
         margin-bottom: 40px;
     }
 
@@ -31,8 +31,7 @@ export const PostWrapper = styled.div`
     }
 
     .MuiCardHeader-root {
-        margin: 0px;
-        padding: 0px;
+        height: 80px;
         width: 600px;
     }
 
@@ -40,15 +39,17 @@ export const PostWrapper = styled.div`
         
     }
 
+    .MuiButtonBase-root{
+        position: relative;
+        top: -50px;
+        padding: 20px;
+
+    }    
 
     .MuiTypography-root {
         font-weight: bold;
         font-size: 15px;
         float: left;
-    }
-
-    .MuiCardContent-root.CardContent {
-
     }
 
     .MuiCardActions-root {
@@ -59,8 +60,7 @@ export const PostWrapper = styled.div`
     }
 
    .MuiCardContent-root {
-       margin: 0px;
-       padding: 0px;
+      margin: 20px;
    }
 
     .button {

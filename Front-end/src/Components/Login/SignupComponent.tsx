@@ -96,49 +96,11 @@ const RegistrationForm = (props: any) => {
           },
         ]}
         hasFeedback
-      >
+        >
+          
         <Input.Password />
       </Form.Item>
 
-      {/* <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={['password']}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please confirm your password!',
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
-
-              return Promise.reject('The two passwords that you entered do not match!');
-            },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item> */}
-
-      {/* <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
-          {
-            validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject('Should accept agreement'),
-          },
-        ]}
-
-      >
-        <Checkbox>
-          I have read the <a href="documents">agreement</a>
-        </Checkbox>
-      </Form.Item> */}
       <Form.Item>
         <Button type="primary" htmlType="submit">
           Register
