@@ -9,6 +9,7 @@ const postSchema = new Schema({
     imageId: {type: String},
     description: {type: String},
     likes: {type: Number},
+    likedBy: [String],
     date: {type: Date}
 },
 

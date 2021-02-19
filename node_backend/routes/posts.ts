@@ -190,6 +190,27 @@ router.route("/like").post((req: any, res:any) => {
             .then((post: any) => {
                 post.likes = Number(req.body.likes);
 
+                let likedBy = req.body.likedBy;
+
+                if(post.likedBy.includes(likedBy) === false){
+                    post.likedBy.push(likedBy)
+                    //Why didn't  post.likedBy =  post.likedBy.push(likedBy) work?   
+                    // left: refers to document element array defined in model. right: (document element empty array --> push "Tao".) = ["Tao"] 
+                    // Hypothesis: When you set an array equal to an array, 
+                    // If the array schema is defined, you don`t set the array equal to an array. You push. (can replace with modified array)
+                }
+                else if (post.likedBy.includes(likedBy) === true){
+
+                    const checkUser = (username: string) => {
+                        return username = likedBy
+                    }
+
+                    let index = post.likedBy.findIndex(checkUser);
+                    post.likedBy.splice(index, 1)
+                }
+
+                console.log(likedBy, post.likedBy);
+    
                 post.save()
                 .catch((err: any) => res.status(400).json("Error: " + err))       
             })

@@ -40,10 +40,15 @@ export const PostWrapper = styled.div`
         
     }
 
+
     .MuiTypography-root {
         font-weight: bold;
         font-size: 15px;
         float: left;
+    }
+
+    .MuiCardContent-root.CardContent {
+
     }
 
     .MuiCardActions-root {

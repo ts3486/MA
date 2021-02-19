@@ -20,51 +20,51 @@ interface Props {
 }
 
 
-export const PostComponent: React.FC<Props> = (Props) => {
+export const PostComponent: React.FC<Props> = (props: any) => {
 
 //Get images
     let content = null;
 
-    if (Props.filename?.includes("jpg")){
+    if (props.filename?.includes("jpg")){
         content = (
             <CardMedia 
             style={{ height: "800px", width: "600px" }}
             component="img"
-            src={"http://localhost:5000/posts/images/" + Props.filename} title="post content"/>
+            src={"http://localhost:5000/posts/images/" + props.filename} title="post content"/>
         );
     }
-    else if (Props.filename?.includes("jpeg")){
+    else if (props.filename?.includes("jpeg")){
         content = (
             <CardMedia 
             style={{ height: "800px", width: "600px" }}
             component="img"
-            src={"http://localhost:5000/posts/images/" + Props.filename} title="post content"/>
+            src={"http://localhost:5000/posts/images/" + props.filename} title="post content"/>
         );
     }
-    else if (Props.filename?.includes("png")){
+    else if (props.filename?.includes("png")){
         content = (
             <CardMedia 
             style={{ height: "800px", width: "600px" }}
             component="img"
-            src={"http://localhost:5000/posts/images/" + Props.filename} title="post content"/>
+            src={"http://localhost:5000/posts/images/" + props.filename} title="post content"/>
         );
     }
-    else if (Props.filename?.includes("mov")){
+    else if (props.filename?.includes("mov")){
         content = (
             <CardMedia 
             style={{ height: "800px", width: "600px" }}
             component="video"
-            src={"http://localhost:5000/posts/images/" + Props.filename} title="post content" controls/>
+            src={"http://localhost:5000/posts/images/" + props.filename} title="post content" controls/>
             );
     };
 
 //Delete posts
     // const deleteHandler = () => {
-    //     axios.delete("http://localhost:5000/posts/delete/" + Props.id).then(()=>{
-    //         console.log("image " + Props.id + " deleted");
+    //     axios.delete("http://localhost:5000/posts/delete/" + props.id).then(()=>{
+    //         console.log("image " + props.id + " deleted");
     //     })
 
-    //     axios.delete("http://localhost:5000/posts/image/delete/" + Props.filename);
+    //     axios.delete("http://localhost:5000/posts/image/delete/" + props.filename);
 
     //     window.location.reload();
     // };
@@ -83,17 +83,23 @@ export const PostComponent: React.FC<Props> = (Props) => {
         let initialLikes = likes;
         //load the likes of the post
         if(initialLikes === 0){
-            axios.get("http://localhost:5000/posts/" + Props.id).then((res: any) => {
+            axios.get("http://localhost:5000/posts/" + props.id).then((res: any) => {
                 let currentLikes = res.data.likes;
                 addLike(likes + currentLikes);
+
+                if(res.data.likedBy.includes(props.user.username)){
+                    markPost(true);
+                }
             })
         }
         //check if user has liked this post before
-        // axios.get("http://localhost:5000/posts/" + Props.id).then((res: any) => {
+
+        //1. Add post id to user profile everytime a post is liked. OR 2. add likedUsers to the post document. 
+        // axios.get("http://localhost:5000/posts/" + props.id).then((res: any) => {
         // })
 
         const fetchUserData = () => {
-            axios.get("http://localhost:5000/users/profile/" + Props.username).then((res: any) => {
+            axios.get("http://localhost:5000/users/profile/" + props.username).then((res: any) => {
 
                 setFilename(res.data.filename);
 
@@ -109,13 +115,15 @@ export const PostComponent: React.FC<Props> = (Props) => {
     interface likeData{
         id: String | undefined,
         likes: Number
+        likedBy: String [];
     }
 
     const likeHandler = (updatedLikes: number) => {
 
         const Likes: likeData = {
-            id: Props.id,
+            id: props.id,
             likes: updatedLikes,
+            likedBy: props.user.username,
         }
 
         JSON.stringify(Likes);
@@ -130,8 +138,9 @@ export const PostComponent: React.FC<Props> = (Props) => {
     const unlikeHandler = (updatedLikes: number) => {
 
         const Likes: likeData = {
-            id: Props.id,
+            id: props.id,
             likes: updatedLikes,
+            likedBy: props.user.username
         }
 
         JSON.stringify(Likes);
@@ -148,16 +157,17 @@ export const PostComponent: React.FC<Props> = (Props) => {
     return( 
         <PostWrapper>
              
-            <Card className="post_container" id={Props.id} >
+            <Card className="post_container" id={props.id} >
 
                 <CardHeader className="cardheader" 
                     avatar={<Avatar aria-label="recipe" className="avatar" src={"http://localhost:5000/posts/images/" + filename}> U </Avatar>} 
                     action={<IconButton aria-label="settings"> <MoreVertIcon /> </IconButton>}
-                    title={Props.username}/>
+                    title={props.username}/>
                     
                 {/* Image or Video */}
                 {content}
 
+                {/* {props.isAuthenticated ?  */}
                 <CardActions className="CardActions">
                     {postLiked ? 
                     <div className="actionIcons">
@@ -171,8 +181,9 @@ export const PostComponent: React.FC<Props> = (Props) => {
                     {/* You use the empty function to not pass the event to the function. instead it`s just a trigger to activate the function */}
                     {/* <DeleteIcon className="button" onClick={deleteHandler}/> */}
                 </CardActions>
+                {/* : null  }             */}
 
-                <CardContent className="CardContent">{Props.description}</CardContent>
+                <CardContent className="CardContent">{props.description}</CardContent>
 
             </Card>
         </PostWrapper>
@@ -183,6 +194,8 @@ export const PostComponent: React.FC<Props> = (Props) => {
 const mapStateToProps = (state: any) => {
     return{
         posts: state.posts.posts,
+        user: state.auth.user,
+        isAuthenticated: state.auth.token !== null,
     }
 }
 
