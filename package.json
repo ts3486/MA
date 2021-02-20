@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/ts3486/MA/issues"
   },
-  "homepage": "https://github.com/ts3486/MA#readme"
+  "homepage": "https://github.com/ts3486/MA#readme",
+  "dependencies": {
+    "ts-node": "^9.1.1"
+  }
 }
