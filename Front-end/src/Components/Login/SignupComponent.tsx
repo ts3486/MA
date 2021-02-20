@@ -15,6 +15,7 @@ const RegistrationForm = (props: any) => {
   const [password, setPassword] = useState();
 
 
+  //Submit registration data
   const onSubmit = () => {
 
     props.registerUser(username, email, password);

@@ -12,6 +12,7 @@ export const FormComponent: React.FC = (props: any) => {
     const [image, setImage] = useState(null);
     const [description, setDesc] = useState("");
 
+    //Sennd Form Data
     const postHandler = (e: any) => {
         e.preventDefault();
 
@@ -28,11 +29,13 @@ export const FormComponent: React.FC = (props: any) => {
 
 
         imageData.append("image", image)
-          
+        
+        //Send post information to db
         axios.post("http://localhost:5000/posts/add", postData).then(response => {
           console.log(response, "Post added!"); 
           }).catch(error => console.log(error))
-
+        
+        //Upload image to db
         axios.post("http://localhost:5000/posts/add/image", imageData).then(response => {
             console.log(imageData);
             console.log(response, "Image added!");

@@ -6,7 +6,7 @@ const path = require("path");
 const mongoURI = "mongodb+srv://Tao:Tao34@cluster1.lfte8.mongodb.net/test?retryWrites=true&w=majority"
 
 
-// With GridFS     GridFS allows data storage of files over 16MB
+//GridFS allows data storage of files over 16MB. Appropriate for large files and videos.
 
 const storage = new GridFsStorage({
     url: mongoURI,
@@ -15,6 +15,7 @@ const storage = new GridFsStorage({
         return new Promise(
             (resolve, reject) => {
                 
+                //If you want to encode the filename.
                 // crypto.randomBytes(16,(err: any, buf: any) => {
                 //     if(err){
                 //         return reject(err);
@@ -25,7 +26,7 @@ const storage = new GridFsStorage({
                     const fileInfo = {
                         filename: file.originalname,
                         
-                        //bucketname should match the collection name
+                        //Which collection to save data on (should match collection name);
                         bucketName: "uploads"
                     };
     
@@ -40,26 +41,3 @@ const storage = new GridFsStorage({
 const upload = multer({ storage })
 
 module.exports = upload;
-
-
-
-
-// // Set storage engine
-// let storage = multer.diskStorage({
-//     destination:"../public/uploads/",
-
-//     filename: function(req: any,file: any, cb: any){
-//         //ext returns the "jpg" of "image.jpg"
-//         var ext = file.originalname.substr(file.originalname.lastIndexOf("."));
-
-//         //first parameter is 
-//         cb(null,file.filename + "-" + Date.now() + ext)
-//     }
-// })
-
-// const upload = multer({
-//     storage: storage, 
-//     limits:{fileSize: 1000000}
-// }).single("image");
-
-// module.exports = upload;

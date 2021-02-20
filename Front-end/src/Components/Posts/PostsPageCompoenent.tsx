@@ -48,13 +48,4 @@ const mapStateToProps = (state: any) => {
     };
   };
   
-//   const mapDispatchToProps = (dispatch: any) => {
-//     return{
-//         fetchPosts: () => dispatch(actionTypes_posts.fetchPosts()),
-//         awaitData: () => dispatch(actionTypes_posts.awaitData()),
-//         loadUser: () => dispatch(actionTypes_auth.loadUser()),
-//         countTotalLikes: (username: string) => dispatch(actionTypes_user.countTotalLikes(username)),
-//     }
-//   }
-  
   export default connect(mapStateToProps)(PostsPageComponent);

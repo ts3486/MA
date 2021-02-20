@@ -12,13 +12,15 @@ const NormalLoginForm = (props: any) => {
 const [email, setEmail] = useState();
 const [password, setPassword] = useState();
 
+
+//Trigger authentication process with form data
 const onSubmit = () => {
     props.login(email, password);
 
     props.history.push("/");
   };
 
-
+//Error message 
   let errorMessage = null;
   if (props.error){
       errorMessage = (

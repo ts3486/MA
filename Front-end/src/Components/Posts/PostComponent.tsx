@@ -25,6 +25,7 @@ export const PostComponent: React.FC<Props> = (props: any) => {
 //Get images
     let content = null;
 
+    //check file format
     if (props.filename?.includes("jpg")){
         content = (
             <CardMedia 
@@ -70,6 +71,7 @@ export const PostComponent: React.FC<Props> = (props: any) => {
     // };
 
     // const [username, setUsername] = useState();
+
     const [filename, setFilename] = useState();
 
 
@@ -81,23 +83,21 @@ export const PostComponent: React.FC<Props> = (props: any) => {
     useEffect(() => {
 
         let initialLikes = likes;
-        //load the likes of the post
+        //Get likes 
         if(initialLikes === 0){
             axios.get("http://localhost:5000/posts/" + props.id).then((res: any) => {
                 let currentLikes = res.data.likes;
                 addLike(likes + currentLikes);
 
+                //If user has liked before set liked as true.
                 if(res.data.likedBy.includes(props.user.username)){
                     markPost(true);
                 }
             })
         }
-        //check if user has liked this post before
+        
 
-        //1. Add post id to user profile everytime a post is liked. OR 2. add likedUsers to the post document. 
-        // axios.get("http://localhost:5000/posts/" + props.id).then((res: any) => {
-        // })
-
+        //Get user data
         const fetchUserData = () => {
             axios.get("http://localhost:5000/users/profile/" + props.username).then((res: any) => {
 
@@ -118,6 +118,7 @@ export const PostComponent: React.FC<Props> = (props: any) => {
         likedBy: String [];
     }
 
+    //Send updated like data to db
     const likeHandler = (updatedLikes: number) => {
 
         const Likes: likeData = {
@@ -135,6 +136,7 @@ export const PostComponent: React.FC<Props> = (props: any) => {
 
     };
 
+    //remove or update like data from db
     const unlikeHandler = (updatedLikes: number) => {
 
         const Likes: likeData = {

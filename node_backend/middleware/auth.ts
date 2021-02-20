@@ -1,5 +1,6 @@
 export{}
 const config = require("config");
+//jwt (json web token) for encoding and decoding token data.
 const jwt = require("jsonwebtoken");
 
 const auth = (req: any, res: any, next: any) => {
@@ -24,4 +25,8 @@ const auth = (req: any, res: any, next: any) => {
 
 module.exports = auth;
 
-//just add auth to the parameters in routes you want to require authorization token
+//Just add auth to the parameters in routes you want to require authorization token
+//This authentication processs is performed to start the request. 
+//Token is red from request header, the decoded with the jwtSecret key. 
+//Then the decoded token is sent to the req body. 
+

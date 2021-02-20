@@ -1,5 +1,7 @@
 export{}
 const mongoose = require("mongoose");
+//mongoose is an Object Data Modeling (ODM) library, which makes MongoDB and node work more smoothly.
+//Ex. Schema Validation is much simpler with mongoose.
 
 const Schema = mongoose.Schema;
 

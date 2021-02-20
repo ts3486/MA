@@ -30,8 +30,7 @@ app.use(cors());
 app.use(express.json());
 //allow to read .env files
 require("dotenv").config();
-//serving static files
-// app.use(express.static(path.join(__dirname, "uploads")))
+
 
 
 //MongoDB Connection 
@@ -55,13 +54,7 @@ app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 
 
-
-// app.post("/upload", upload.single("image"), (req: any, res: any) => {
-//     res.json({file: req.file});    
-// })
-
-
-//PORT
+//PORT Configuration
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

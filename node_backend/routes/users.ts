@@ -6,6 +6,9 @@ const config = require("config");
 //User Model
 let User = require("../models/users.model");
 
+
+//GET
+
 //Get all user`s JSON info
 router.route("/").get((req :any, res: any) => {
     //Mongo command .find() looks for all collections
@@ -19,6 +22,9 @@ router.route("/profile/:username").get((req: any,res: any) => {
     User.findOne({username: req.params.username}).select("-password")
     .then((user: any) => res.json(user));
 })
+
+
+//POST
 
 //Regsiter a new user
 router.route("/add").post((req :any, res: any) => {
@@ -79,6 +85,8 @@ router.route("/add").post((req :any, res: any) => {
     })
 })
 
+
+//Edit Profile
 router.route("/profile/update/:username").post((req: any,res: any) => {
 
     const oldUsername: string = req.params.username;
