@@ -19,7 +19,11 @@ const rootReducer = combineReducers({
   error: errorReducer,
 });
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+const devTools = process.env.NODE_ENV === "production"
+? applyMiddleware(thunk)
+: composeWithDevTools(applyMiddleware(thunk));
+
+const store = createStore(rootReducer, devTools);
  
 ReactDOM.render(
   <React.StrictMode>
