@@ -1,1 +1,2 @@
-web: cd backend && ts-node index.ts
+web: cd frontend && npm install && npm start
+server: cd backend && npm install && ts-node index.ts
