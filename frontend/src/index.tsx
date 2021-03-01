@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {createStore, applyMiddleware, combineReducers} from "redux"
-import {composeWithDevTools} from "redux-devtools-extension";
+import {composeWithDevTools} from "redux-devtools-extension/logOnlyInProduction";
 import authReducer from './store/reducers/authReducer';
 import userReducer from "./store/reducers/userReducer";
 import postsReducer from './store/reducers/postsReducer';
@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
   error: errorReducer,
 });
 
+//Process represents the global state of the app. (process.env represents the current enviornment)
 const devTools = process.env.NODE_ENV === "production"
 ? applyMiddleware(thunk)
 : composeWithDevTools(applyMiddleware(thunk));
