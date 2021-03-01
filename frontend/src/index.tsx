@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {createStore, applyMiddleware, combineReducers} from "redux"
-import {composeWithDevTools} from "redux-devtools-extension/logOnlyInProduction";
+import {composeWithDevTools} from "redux-devtools-extension";
 import authReducer from './store/reducers/authReducer';
 import userReducer from "./store/reducers/userReducer";
 import postsReducer from './store/reducers/postsReducer';
