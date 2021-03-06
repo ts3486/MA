@@ -15,6 +15,7 @@ const authRouter = require("./routes/auth");
 const config = require("config");
 //json web token for authentication
 const jwt = require("jsonwebtoken")
+const path = require("path");
 
 
 
@@ -47,6 +48,15 @@ connection.once("open", () => {
     gfs.collection('uploads')
     console.log("MongoDB database connection established successfully");
 }).catch((err: any) => console.log(err));
+
+//Serving static file (frontend) to server
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, "frontend", 'build')));
+
+    app.get('*', (res: any) => {
+      res.sendFile(path.join(__dirname, "frontend", "build", 'index.html'));
+    });
+  }
 
 //Routes
 app.use("/posts", postsRouter);
