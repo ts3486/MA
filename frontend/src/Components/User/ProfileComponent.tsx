@@ -32,8 +32,7 @@ export const ProfileComponent: React.FC<Props> = (props: any) => {
 
         const fetchUserData = () => {
             axios.get("http://localhost:5000/users/profile/" + username).then((res: any) => {
-                   
-            
+                                 
                 setUsername(res.data.username);
                 setDescription(res.data.description);
                 setFilename(res.data.filename);
@@ -54,7 +53,7 @@ export const ProfileComponent: React.FC<Props> = (props: any) => {
     const userPosts = props.posts.filter((post: any) => post.username ===  username)
 
     //Profile Update
-    const profileData = {
+    const profileData = { 
         newUsername: userName,
         description: description,
         filename: filename,

@@ -6,11 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {createStore, applyMiddleware, combineReducers} from "redux"
 import {composeWithDevTools} from "redux-devtools-extension";
+import thunk from "redux-thunk";
+
+//Reducers
 import authReducer from './store/reducers/authReducer';
 import userReducer from "./store/reducers/userReducer";
 import postsReducer from './store/reducers/postsReducer';
 import errorReducer from "./store/reducers/errorReducer";
-import thunk from "redux-thunk";
+
 
 const rootReducer = combineReducers({
   auth: authReducer,

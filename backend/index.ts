@@ -17,6 +17,10 @@ const config = require("config");
 const jwt = require("jsonwebtoken")
 const path = require("path");
 
+//Socket.io
+const socketio = require("socket.io");
+//functions from chat.ts
+const {addUser, getUser, getUsersInRoom} = require("./routes/chat");
 
 
 const app = express();
@@ -31,7 +35,18 @@ app.use(cors());
 app.use(express.json());
 //allow to read .env files
 require("dotenv").config();
+//server
+const server = require("http").createServer(app);
 
+
+//Serving static file (frontend) to server
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, "frontend", 'build')));
+
+  app.get('*', (res: any) => {
+    res.sendFile(path.join(__dirname, "frontend", "build", 'index.html'));
+  });
+}
 
 
 //MongoDB Connection 
@@ -49,14 +64,57 @@ connection.once("open", () => {
     console.log("MongoDB database connection established successfully");
 }).catch((err: any) => console.log(err));
 
-//Serving static file (frontend) to server
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, "frontend", 'build')));
+//Socket.io Connection
 
-    app.get('*', (res: any) => {
-      res.sendFile(path.join(__dirname, "frontend", "build", 'index.html'));
-    });
-  }
+//socket.io instance
+const io = socketio(server, {
+  //need to define options for v3 and + 
+  cors: {
+  origin: "http://localhost:5000",
+  methods: ["GET", "POST"],
+  allowedHeaders: "my-headers",
+  credentials: true,
+}})
+
+//triggers at connection ( = page opened)
+io.on("connection", (socket: any) => {
+  console.log("New Connection!");
+
+  socket.on("join", ({username, room}: any, callback: any) => {
+
+    // console.log(username + " has joined " + room + "!")
+
+    const {error, user} = addUser({id: socket.id, username, room});
+
+    //dont put brackets on this or itll stop the process ?
+    if(error) return callback(error);
+    
+    //sends data to specific socket. 
+    io.to(user.room).emit("roomData", {room: user.room, users: getUsersInRoom(user.room)})
+         
+    //socket.join()   joins a user in a room. 
+    socket.join(user.room);
+  })
+
+  socket.on("sendMessage", (message: string, callback: any) => {
+      const user = getUser(socket.id);
+
+      io.to(user.room).emit("message", {user: user.name, text: message});
+      io.to(user.room).emit("roomData", {room: user.room, users: getUsersInRoom(user.room)})
+
+      console.log(message, user);
+
+      callback();
+  })
+
+  socket.on("disconnect", () => {
+      console.log("User has left!")
+  })
+
+  socket.on("connect_error", (err: any) => {
+    console.log(`connect_error due to ${err.message}`);
+  });
+})
 
 //Routes
 app.use("/posts", postsRouter);

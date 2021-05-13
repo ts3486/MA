@@ -93,7 +93,7 @@ export const PostComponent: React.FC<Props> = (props: any) => {
                 if(res.data.likedBy.includes(props.user.username)){
                     markPost(true);
                 }
-            })
+            }) 
         }
         
 

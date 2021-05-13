@@ -22,7 +22,7 @@ export const FormComponent: React.FC = (props: any) => {
             description: description,
             likes: "",
             date: new Date(),
-        }
+        } 
 
         //form data can only be called once in one form?
         const imageData: any = new FormData();
